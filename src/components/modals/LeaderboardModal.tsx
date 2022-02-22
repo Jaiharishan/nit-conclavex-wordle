@@ -3,7 +3,7 @@ import { BaseModal } from './BaseModal'
 import { StatBar } from '../stats/StatBar'
 import { Leaderboard } from '../leaderboard/Leaderboard'
 import {
-  STATISTICS_TITLE,
+  LEADERBOARD_TITLE,
 } from '../../constants/strings'
 
 type Props = {
@@ -20,7 +20,7 @@ export const LeaderboardModel = ({
   if (gameStats.totalGames <= 0) {
     return (
       <BaseModal
-        title={STATISTICS_TITLE}
+        title={LEADERBOARD_TITLE}
         isOpen={isOpen}
         handleClose={handleClose}
       >
@@ -30,7 +30,7 @@ export const LeaderboardModel = ({
   }
   return (
     <BaseModal
-      title={STATISTICS_TITLE}
+      title={LEADERBOARD_TITLE}
       isOpen={isOpen}
       handleClose={handleClose}
     >
