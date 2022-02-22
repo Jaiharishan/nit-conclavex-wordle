@@ -41,8 +41,8 @@ import {
   setStoredIsHighContrastMode,
   getStoredIsHighContrastMode,
 } from './lib/localStorage'
-
 import './App.css'
+import Login from './components/buttons/Login'
 
 function App() {
   const prefersDarkMode = window.matchMedia(
@@ -324,6 +324,7 @@ function App() {
         variant="success"
         topMost={true}
       />
+      <Login />
     </div>
   )
 }
