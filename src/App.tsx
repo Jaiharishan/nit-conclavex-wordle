@@ -1,9 +1,12 @@
 import {
   InformationCircleIcon,
   ChartBarIcon,
+  ChartPieIcon,
   CogIcon,
 } from '@heroicons/react/outline'
 import { useState, useEffect } from 'react'
+import 'react-tabs/style/react-tabs.css'
+import { LeaderboardModel } from './components/modals/LeaderboardModal'
 import { Alert } from './components/alerts/Alert'
 import { Grid } from './components/grid/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
@@ -51,6 +54,7 @@ function App() {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false)
   const [isNotEnoughLetters, setIsNotEnoughLetters] = useState(false)
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false)
+  const [isLeaderboardModalOpen, setIsLeaderboardModalOpen] = useState(false)
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
   const [isHardModeAlertOpen, setIsHardModeAlertOpen] = useState(false)
   const [isWordNotFoundAlertOpen, setIsWordNotFoundAlertOpen] = useState(false)
@@ -244,9 +248,13 @@ function App() {
           className="h-6 w-6 mr-2 cursor-pointer dark:stroke-white"
           onClick={() => setIsInfoModalOpen(true)}
         />
-        <ChartBarIcon
+        <ChartPieIcon
           className="h-6 w-6 mr-3 cursor-pointer dark:stroke-white"
           onClick={() => setIsStatsModalOpen(true)}
+        />
+        <ChartBarIcon
+          className="h-6 w-6 mr-3 cursor-pointer dark:stroke-white"
+          onClick={() => setIsLeaderboardModalOpen(true)}
         />
         <CogIcon
           className="h-6 w-6 mr-3 cursor-pointer dark:stroke-white"
@@ -269,6 +277,11 @@ function App() {
       <InfoModal
         isOpen={isInfoModalOpen}
         handleClose={() => setIsInfoModalOpen(false)}
+      />
+      <LeaderboardModel
+        isOpen={isLeaderboardModalOpen}
+        handleClose={() => setIsLeaderboardModalOpen(false)}
+        gameStats={stats}
       />
       <StatsModal
         isOpen={isStatsModalOpen}
