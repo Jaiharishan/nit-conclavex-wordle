@@ -1,4 +1,5 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { useEffect, useState } from 'react'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Rank', width: 80 },
@@ -11,7 +12,7 @@ const columns: GridColDef[] = [
   },
 ]
 
-const rows = [
+const tmp = [
   { id: 1, name: 'Jon', score: 35 },
   { id: 2, name: 'Cersei', score: 42 },
   { id: 3, name: 'Jaime', score: 45 },
@@ -24,10 +25,30 @@ const rows = [
 ]
 
 export const Leaderboard = () => {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    fetch('http://localhost:4000/users')
+      .then(async (res) => {
+        //console.log(await res.json())
+        const users: any = Object.entries(await res.json())[1][1]
+        users.sort((a: any, b: any) => (a.score > b.score ? -1 : 1))
+        setData(users)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
   return (
-    <div style={{ height: 400, width: '100%', color: 'white', backgroundColor: '#2563EB' }}>
+    <div
+      style={{
+        height: 400,
+        width: '100%',
+        color: 'white',
+        backgroundColor: '#2563EB',
+      }}
+    >
       <DataGrid
-        rows={rows}
+        rows={!data ? tmp : data}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

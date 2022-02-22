@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import GoogleLogin from 'react-google-login'
 
 const responseGoogle = (res: any) => {
   console.log(res)
 }
+
 const Login = () => {
   const [response, setResponse] = useState('')
 
   const onSuccess = (response: any) => {
-    setResponse(response)
+    setResponse(response.profileObj)
 
     // send the response to a backend using axios and get that creds store in a database and display in leaderboard
-    console.log(response)
+    const name  = response.name
+    const email = response.email
   }
   const clientId =
     '428218354441-bbovvr4fia9t9v7obe75c6kp7hils1nb.apps.googleusercontent.com'
