@@ -1,19 +1,27 @@
 import { useState } from 'react'
 import GoogleLogin from 'react-google-login'
+import { BACKEND_URL } from '../../constants/strings'
 
 const responseGoogle = (res: any) => {
   console.log(res)
 }
 
+export let currentUserEmail = ''
 const Login = () => {
-  const [response, setResponse] = useState('')
 
-  const onSuccess = (response: any) => {
-    setResponse(response.profileObj)
+  const onSuccess = (res: any) => {
 
     // send the response to a backend using axios and get that creds store in a database and display in leaderboard
-    const name  = response.name
-    const email = response.email
+    let data = { id: res.profileObj.googleId , name: res.profileObj.name, email: res.profileObj.email, score: 0 }
+    currentUserEmail = res.profileObj.email
+
+    fetch(BACKEND_URL+'/postUser', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      console.log('Request complete! response:', res)
+    })
   }
   const clientId =
     '428218354441-bbovvr4fia9t9v7obe75c6kp7hils1nb.apps.googleusercontent.com'

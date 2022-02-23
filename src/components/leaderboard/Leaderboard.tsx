@@ -1,5 +1,6 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { useEffect, useState } from 'react'
+import { BACKEND_URL } from '../../constants/strings'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Rank', width: 80 },
@@ -14,20 +15,12 @@ const columns: GridColDef[] = [
 
 const tmp = [
   { id: 1, name: 'Jon', score: 35 },
-  { id: 2, name: 'Cersei', score: 42 },
-  { id: 3, name: 'Jaime', score: 45 },
-  { id: 4, name: 'Arya', score: 16 },
-  { id: 5, name: 'Daenerys', score: 29 },
-  { id: 6, name: 'Akash', score: 150 },
-  { id: 7, name: 'Ferrara', score: 44 },
-  { id: 8, name: 'Rossini', score: 36 },
-  { id: 9, name: 'Harvey', score: 65 },
 ]
 
 export const Leaderboard = () => {
   const [data, setData] = useState([])
   useEffect(() => {
-    fetch('http://localhost:4000/users')
+    fetch(BACKEND_URL+'/users')
       .then(async (res) => {
         //console.log(await res.json())
         const users: any = Object.entries(await res.json())[1][1]

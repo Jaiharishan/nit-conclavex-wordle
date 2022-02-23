@@ -13,6 +13,7 @@ import { Keyboard } from './components/keyboard/Keyboard'
 import { InfoModal } from './components/modals/InfoModal'
 import { StatsModal } from './components/modals/StatsModal'
 import { SettingsModal } from './components/modals/SettingsModal'
+import { currentUserEmail } from './components/buttons/Login'
 import {
   GAME_TITLE,
   WIN_MESSAGES,
@@ -20,6 +21,7 @@ import {
   NOT_ENOUGH_LETTERS_MESSAGE,
   WORD_NOT_FOUND_MESSAGE,
   CORRECT_WORD_MESSAGE,
+  BACKEND_URL,
 } from './constants/strings'
 import {
   MAX_WORD_LENGTH,
@@ -139,8 +141,48 @@ function App() {
     saveGameStateToLocalStorage({ guesses, solution })
   }, [guesses])
 
+  async function updateUserScore() {
+    //GET Current user score
+    let currentScore = 0
+    let currentName = ''
+    let currentId = ''
+
+    await fetch(BACKEND_URL + '/users')
+      .then(async (res) => {
+        const users: any = Object.entries(await res.json())[1][1]
+        const result = users.find(
+          ({ email }: { email: any }) => email === currentUserEmail
+        )
+        //console.log(result.score)
+        currentScore = result.score
+        currentName = result.name
+        currentId = result.id
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    let data = {
+      id: currentId,
+      name: currentName,
+      email: currentUserEmail,
+      score: currentScore + 10,
+    }
+    console.log(data)
+
+    fetch(BACKEND_URL + '/postUser', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      console.log('Request complete! PUT postUser', res)
+    })
+  }
+
   useEffect(() => {
     if (isGameWon) {
+      updateUserScore()
+
       setTimeout(() => {
         setSuccessAlert(
           WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)]
