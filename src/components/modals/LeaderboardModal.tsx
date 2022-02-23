@@ -14,7 +14,6 @@ type Props = {
 export const LeaderboardModel = ({
   isOpen,
   handleClose,
-  gameStats,
 }: Props) => {
   return (
     <BaseModal

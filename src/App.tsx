@@ -285,19 +285,19 @@ function App() {
           {GAME_TITLE}
         </h1>
         <InformationCircleIcon
-          className="h-6 w-6 mr-2 cursor-pointer dark:stroke-white"
+          className="h-7 w-7 mr-2 cursor-pointer dark:stroke-white"
           onClick={() => setIsInfoModalOpen(true)}
         />
         <ChartPieIcon
-          className="h-6 w-6 mr-3 cursor-pointer dark:stroke-white"
+          className="h-7 w-7 mr-2 cursor-pointer dark:stroke-white"
           onClick={() => setIsStatsModalOpen(true)}
         />
         <ChartBarIcon
-          className="h-6 w-6 mr-3 cursor-pointer dark:stroke-white"
+          className="h-7 w-7 mr-2 cursor-pointer dark:stroke-white"
           onClick={() => setIsLeaderboardModalOpen(true)}
         />
         <CogIcon
-          className="h-6 w-6 mr-3 cursor-pointer dark:stroke-white"
+          className="h-7 w-7 mr-2 cursor-pointer dark:stroke-white"
           onClick={() => setIsSettingsModalOpen(true)}
         />
       </div>

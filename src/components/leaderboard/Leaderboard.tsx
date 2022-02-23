@@ -1,5 +1,4 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
 import { useEffect, useState } from 'react'
 import { BACKEND_URL } from '../../constants/strings'
 
@@ -21,7 +20,6 @@ export const Leaderboard = () => {
   useEffect(() => {
     fetch(BACKEND_URL + '/users')
       .then(async (res) => {
-        //console.log(await res.json())
         const users: any = Object.entries(await res.json())[1][1]
         users.sort((a: any, b: any) => (a.score > b.score ? -1 : 1))
         users.forEach((user: any, index: any) => {
@@ -38,6 +36,7 @@ export const Leaderboard = () => {
       style={{
         height: 400,
         width: '100%',
+        minWidth: 300,
         color: 'white',
         backgroundColor: '#FFF',
       }}

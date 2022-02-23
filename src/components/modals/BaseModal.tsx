@@ -14,6 +14,7 @@ export const BaseModal = ({ title, children, isOpen, handleClose }: Props) => {
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
         as="div"
+        style={{width: '100%'}}
         className="fixed z-10 inset-0 overflow-y-auto"
         onClose={handleClose}
       >
