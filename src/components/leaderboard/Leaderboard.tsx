@@ -25,10 +25,8 @@ export const Leaderboard = () => {
         const users: any = Object.entries(await res.json())[1][1]
         users.sort((a: any, b: any) => (a.score > b.score ? -1 : 1))
         users.forEach((user: any, index: any) => {
-          console.log(user,index);
-          users.id = index + 1;
+          user.id = index + 1;
         })
-        console.log(users)
         setData(users)
       })
       .catch((error) => {
@@ -41,7 +39,7 @@ export const Leaderboard = () => {
         height: 400,
         width: '100%',
         color: 'white',
-        backgroundColor: '#2563EB',
+        backgroundColor: '#FFF',
       }}
     >
       <DataGrid

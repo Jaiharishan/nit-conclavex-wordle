@@ -147,7 +147,7 @@ function App() {
     let currentName = ''
     let currentId = ''
 
-    await fetch(BACKEND_URL + '/users')
+    fetch(BACKEND_URL + '/users')
       .then(async (res) => {
         const users: any = Object.entries(await res.json())[1][1]
         const result = users.find(
@@ -157,26 +157,24 @@ function App() {
         currentScore = result.score
         currentName = result.name
         currentId = result.id
+        let data = {
+          id: currentId,
+          name: currentName,
+          email: currentUserEmail,
+          score: currentScore + 10,
+        }
+
+        fetch(BACKEND_URL + '/postUser', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        }).then((res) => {
+          console.log('Request complete! PUT postUser', res)
+        })
       })
       .catch((error) => {
         console.log(error)
       })
-
-    let data = {
-      id: currentId,
-      name: currentName,
-      email: currentUserEmail,
-      score: currentScore + 10,
-    }
-    console.log(data)
-
-    fetch(BACKEND_URL + '/postUser', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }).then((res) => {
-      console.log('Request complete! PUT postUser', res)
-    })
   }
 
   useEffect(() => {
