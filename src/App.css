@@ -1,3 +1,36 @@
 html.dark {
   background-color: rgb(33, 44, 53);
 }
+.header {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3rem;
+  color: #fff;
+}
+.right-logo {
+  position: absolute;
+  height: 15rem;
+  width: 15rem;
+  top: 22px;
+  right: 10px;
+  z-index: 100;
+}
+.center-logo {
+  position: absolute;
+  height: 12rem;
+  width: 12rem;
+  top: -40px;
+  left: calc(50vw - 75px);
+  z-index: 100;
+}
+.left-logo {
+  position: absolute;
+  height: 6rem;
+  width: 6rem;
+  top: 16px;
+  left: 16px;
+  z-index: 100;
+}

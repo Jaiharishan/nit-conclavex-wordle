@@ -280,6 +280,17 @@ function App() {
 
   return (
     <div className="pt-2 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="header">
+        <div className="left-logo">
+          <img src="./nitt.png" alt="NITT-LOGO" />
+        </div>
+        <div className="center-logo">
+          <img src="./conclave.png" alt="CONCALVE-LOGO" />
+        </div>
+        <div className="right-logo">
+          <img src="./prgyan.png" alt="PRGYAN-LOGO" />
+        </div>
+      </div>
       <div className="flex w-80 mx-auto items-center mb-8 mt-20">
         <h1 className="text-xl ml-2.5 grow font-bold dark:text-white">
           {GAME_TITLE}
