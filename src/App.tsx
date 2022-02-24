@@ -45,6 +45,7 @@ import {
 } from './lib/localStorage'
 import './App.css'
 import Login from './components/buttons/Login'
+import { LoginModel } from './components/modals/loginModal'
 
 function App() {
   const prefersDarkMode = window.matchMedia(
@@ -57,6 +58,7 @@ function App() {
   const [isNotEnoughLetters, setIsNotEnoughLetters] = useState(false)
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false)
   const [isLeaderboardModalOpen, setIsLeaderboardModalOpen] = useState(false)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(true)
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
   const [isHardModeAlertOpen, setIsHardModeAlertOpen] = useState(false)
   const [isWordNotFoundAlertOpen, setIsWordNotFoundAlertOpen] = useState(false)
@@ -164,8 +166,8 @@ function App() {
           score: currentScore + 10,
         }
 
-        fetch(BACKEND_URL + '/postUser', {
-          method: 'POST',
+        fetch(BACKEND_URL + '/updateUser', {
+          method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         }).then((res) => {
@@ -280,7 +282,7 @@ function App() {
 
   return (
     <div className="mt-20 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div className="flex fixed top-0 left-0 w-full px-2 md:px-4 items-center justify-between">
+      <div className="flex fixed top-0 left-0 w-full px-2 md:px-4 items-center justify-between -z-10">
         <div className="w-16 h-16 md:w-20 md:h-20 flex items-center">
           <img src="./nitt.png" alt="NITT-LOGO" />
         </div>
@@ -337,6 +339,11 @@ function App() {
         handleClose={() => setIsLeaderboardModalOpen(false)}
         gameStats={stats}
       />
+      <LoginModel
+        isOpen={isLoginModalOpen}
+        handleClose={() => setIsLoginModalOpen(false)}
+        gameStats={stats}
+      />
       <StatsModal
         isOpen={isStatsModalOpen}
         handleClose={() => setIsStatsModalOpen(false)}
@@ -378,7 +385,7 @@ function App() {
         variant="success"
         topMost={true}
       />
-      <Login />
+      {/* <Login /> */}
     </div>
   )
 }
