@@ -281,13 +281,16 @@ function App() {
   return (
     <div className="pt-2 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div className="header">
-        <div className="left-logo">
+        <div className="left1-logo">
           <img src="./nitt.png" alt="NITT-LOGO" />
         </div>
-        <div className="center-logo">
+        <div className="left2-logo">
           <img src="./conclave.png" alt="CONCALVE-LOGO" />
         </div>
-        <div className="right-logo">
+        <div className="right2-logo">
+          <img src="./tc.png" alt="TC-LOGO" />
+        </div>
+        <div className="right1-logo">
           <img src="./prgyan.png" alt="PRGYAN-LOGO" />
         </div>
       </div>
