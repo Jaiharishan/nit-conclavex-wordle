@@ -279,18 +279,18 @@ function App() {
   }
 
   return (
-    <div className="pt-2 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div className="header">
-        <div className="left1-logo">
+    <div className="mt-20 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <div className="flex fixed top-0 left-0 w-full px-2 md:px-4 items-center justify-between">
+        <div className="w-16 h-16 md:w-20 md:h-20 flex items-center">
           <img src="./nitt.png" alt="NITT-LOGO" />
         </div>
-        <div className="left2-logo">
+        <div className="w-24 h-24 md:w-28 md:h-28 flex items-center">
           <img src="./conclave.png" alt="CONCALVE-LOGO" />
         </div>
-        <div className="right2-logo">
+        <div className="w-16 h-16 md:w-20 md:h-20 flex items-center">
           <img src="./tc.png" alt="TC-LOGO" />
         </div>
-        <div className="right1-logo">
+        <div className="w-24 h-24 md:h-28 md:w-28 flex items-center">
           <img src="./prgyan.png" alt="PRGYAN-LOGO" />
         </div>
       </div>
