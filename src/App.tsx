@@ -23,6 +23,7 @@ import {
   CORRECT_WORD_MESSAGE,
   BACKEND_URL,
 } from './constants/strings'
+import LoginBaseModal from './components/modals/LoginBaseModel'
 import {
   MAX_WORD_LENGTH,
   MAX_CHALLENGES,
@@ -46,11 +47,15 @@ import {
 import './App.css'
 import Login from './components/buttons/Login'
 import { LoginModel } from './components/modals/loginModal'
+// import { useState } from 'react'
+import GoogleLogin from 'react-google-login'
 
 function App() {
   const prefersDarkMode = window.matchMedia(
     '(prefers-color-scheme: dark)'
   ).matches
+
+  const [isUser, setIsUser] = useState(false)
 
   const [currentGuess, setCurrentGuess] = useState('')
   const [isGameWon, setIsGameWon] = useState(false)
@@ -280,6 +285,39 @@ function App() {
     }
   }
 
+  const [user, setUser]: any = useState({})
+
+  let currentUserEmail = ''
+  const onSuccess = (res: any) => {
+    // send the response to a backend using axios and get that creds store in a database and display in leaderboard
+    let data = {
+      id: res.profileObj.googleId,
+      name: res.profileObj.name,
+      email: res.profileObj.email,
+      score: 0,
+    }
+
+    setUser(data)
+    setIsUser(true)
+    currentUserEmail = res.profileObj.email
+
+    fetch(BACKEND_URL + '/postUser', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      console.log('Request complete! response:', res)
+    })
+  }
+  const clientId =
+    '428218354441-bbovvr4fia9t9v7obe75c6kp7hils1nb.apps.googleusercontent.com'
+
+  const handleLoginClose = () => {
+    if (isUser) {
+      setIsLoginModalOpen(false)
+    }
+  }
+
   return (
     <div className="mt-20 pb-8 max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div className="flex fixed top-0 left-0 w-full px-2 md:px-4 items-center justify-between -z-10">
@@ -339,11 +377,47 @@ function App() {
         handleClose={() => setIsLeaderboardModalOpen(false)}
         gameStats={stats}
       />
-      <LoginModel
+      {/* <LoginModel
         isOpen={isLoginModalOpen}
         handleClose={() => setIsLoginModalOpen(false)}
         gameStats={stats}
-      />
+        isUser={false}
+      /> */}
+      <LoginBaseModal
+        title={'LOGIN TO PLAY THE GAME'}
+        isOpen={isLoginModalOpen}
+        handleClose={handleLoginClose}
+      >
+        <div className="flex w-100 mt-10 items-center justify-center">
+          {/* <button>Login with google</button> */}
+          {user?.email ? (
+            <p className="text-xl font-bold dark:text-white">Hi! {user.name}</p>
+          ) : (
+            <GoogleLogin
+              clientId={clientId}
+              render={(renderProps) => (
+                <button
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  className="dark:bg-white shadow-lg px-3 py-3 rounded-lg flex gap-1 items-center hover:scale-105 transition duration-150"
+                >
+                  <img
+                    src="https://img.icons8.com/color/50/000000/google-logo.png"
+                    alt="google-icon"
+                    className="w-8 h-8 md:w-10 md:h-10"
+                  />
+
+                  <p className="md:text-lg">Login with Google</p>
+                </button>
+              )}
+              buttonText="Login with Google"
+              onSuccess={onSuccess}
+              onFailure={(res) => console.log(res)}
+              cookiePolicy={'single_host_origin'}
+            />
+          )}
+        </div>
+      </LoginBaseModal>
       <StatsModal
         isOpen={isStatsModalOpen}
         handleClose={() => setIsStatsModalOpen(false)}

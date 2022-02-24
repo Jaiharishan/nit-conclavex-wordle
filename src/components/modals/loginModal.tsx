@@ -6,9 +6,10 @@ type Props = {
   isOpen: boolean
   handleClose: () => void
   gameStats: GameStats
+  isUser: boolean
 }
 
-export const LoginModel = ({ isOpen, handleClose }: Props) => {
+export const LoginModel = ({ isOpen, handleClose, isUser }: Props) => {
   return (
     <LoginBaseModal
       title={'LOGIN TO PLAY THE GAME'}
